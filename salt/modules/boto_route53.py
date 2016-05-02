@@ -325,7 +325,11 @@ def add_record(name, value, zone, record_type, identifier=None, ttl=None,
                 rate_limit_retries -= 1
                 continue  # the while True; try again if not out of retries
             raise e
-
+    
+    if not value:
+        log.error('value was not provided')
+        return False
+        
     _value = _munge_value(value, _type)
     while rate_limit_retries > 0:
         try:
